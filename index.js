@@ -24,6 +24,18 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.post('/api/:date',(req,res)=>{
+  let dateString=req.params.date;
+  const parts = dateString.split('-');
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // Months are 0-based
+  const day = parseInt(parts[2], 10);
+
+  const date = new Date(year, month, day);
+  const unixTimestamp = date.getTime();
+  res.send({unix:unixTimestamp,utc:`${day,date,month,year,"00:00:00 GMT"}`})
+})
+
 
 
 // Listen on port set in environment variable or default to 3000
